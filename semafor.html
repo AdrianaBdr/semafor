@@ -1,0 +1,111 @@
+<style>
+	.absolute
+	{	
+		position :absolute;
+	}
+	.semafor
+	{
+		top:100px;
+		left:100px;
+	}
+	.cerc
+	{
+		width:100px;
+		height:100px;
+		
+		border-radius:50%;
+	}
+	
+	.rosu
+	{
+		top:0px;
+		background-color:#8A0808;
+	}
+	.galben
+	{
+		top:100px;
+		background-color:#AEB404;
+	}
+	.verde
+	{
+		top:200px;
+		background-color:#0B610B;
+	}
+</style>
+
+<div class="absolute semafor">
+	<div class="absolute cerc rosu"   id="rosu"  ></div>
+	<div class="absolute cerc galben" id="galben"></div>
+	<div class="absolute cerc verde"  id="verde" ></div>
+</div>
+
+<button onclick="schimbaStare()">Alimenteaza semafor</button>
+
+<script>
+	var rosuDiv   = document.getElementById('rosu'  );
+	var galbenDiv = document.getElementById('galben');
+	var verdeDiv  = document.getElementById('verde' );
+	
+	
+	//definesc variabila si o initializez
+	var stare = 0; //nu are curent
+	
+	var catTimpRosuInterval;
+	var catTimpGalbenInterval;
+	var catTimpVerdeInterval;
+	
+	
+	//definesc functia
+	function schimbaStare()
+	{
+		if(stare == 0)
+		{
+			stare = 1;
+			
+			rosuDiv.style.backgroundColor = 'red';
+			
+			catTimpRosuInterval = setInterval( schimbaStare , 3000);
+		}
+		else
+		{
+			if(stare == 1)
+			{
+				stare = 2;
+				
+				clearInterval( catTimpRosuInterval);
+				 rosuDiv.style.backgroundColor = '#8A0808';
+				 
+				catTimpVerdeInterval = setInterval( schimbaStare , 5000);
+				verdeDiv.style.backgroundColor = '#3ADF00';
+			}
+			else
+			{
+				if(verdeDiv.style.backgroundColor = '#3ADF00')
+				{
+					stare = 3;
+					
+					clearInterval(catTimpVerdeInterval);
+					
+					galbenDiv.style.backgroundColor = 'yellow';
+					catTimpGalbenInterval = setInterval( schimbaStare , 2000);
+				}
+				else
+				{
+					if(stare == 3)
+					{
+						stare = 1;
+						
+						galbenDiv.style.backgroundColor = '#AEB404';
+						clearInterval(catTimpGalbenInterval);
+						
+						verdeDiv.style.backgroundColor = '#0B610B';
+						
+						rosuDiv.style.backgroundColor = 'red';
+						catTimpRosuInterval = setInterval( schimbaStare , 3000);
+					}
+				}
+			}
+		}
+	}
+
+</script>
